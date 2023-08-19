@@ -3,14 +3,22 @@
 import useSWR from 'swr';
 import { useEffect, useState } from 'react';
 import { fetcher } from '@/config';
+import { IPlan } from '@/types';
 
 interface IProps {
-  limit: number;
+  plan: IPlan;
   current: number;
 }
 
-export default function Button({ limit, current }: IProps) {
+export default function Button({ plan, current }: IProps) {
   const [isLimitReached, setIsLimitReached] = useState(false);
+
+  const { BUTTON_CLICKS: BUTTON_CLICKS_LIMIT } = plan.LIMITATIONS;
+
+  const limitReachedMessage =
+    plan.TIER === 'PRO'
+      ? 'You have reached the limit of clicks for the pro plan, please upgrade to the premium plan below to keep clicking.'
+      : 'You have reached the limit of clicks for the free plan, please upgrade to a paid plan below to keep clicking.';
 
   const { data: currentClicks, mutate } = useSWR(
     '/api/clicks',
@@ -28,12 +36,13 @@ export default function Button({ limit, current }: IProps) {
   }
 
   useEffect(() => {
-    if (currentClicks >= limit) {
+    if (currentClicks >= BUTTON_CLICKS_LIMIT) {
       setIsLimitReached(true);
     }
-  }, [currentClicks, limit]);
+  }, [currentClicks, BUTTON_CLICKS_LIMIT]);
 
-  const limitLabel = limit === -1 ? 'Unlimited' : limit;
+  const limitLabel =
+    BUTTON_CLICKS_LIMIT === -1 ? 'Unlimited' : BUTTON_CLICKS_LIMIT;
 
   return (
     <>
@@ -43,17 +52,14 @@ export default function Button({ limit, current }: IProps) {
       <button
         type="button"
         onClick={handleClick}
-        disabled={limit !== -1 && currentClicks >= limit}
+        disabled={
+          BUTTON_CLICKS_LIMIT !== -1 && currentClicks >= BUTTON_CLICKS_LIMIT
+        }
         className="disabled:text-red-400"
       >
         Click Me
       </button>
-      {isLimitReached ? (
-        <p>
-          You have reached the limit of clicks for your plan, please upgrade to
-          a paid plan below.
-        </p>
-      ) : null}
+      {isLimitReached ? <p>{limitReachedMessage}</p> : null}
     </>
   );
 }

@@ -19,13 +19,11 @@ export default async function Home() {
     return <p>No User Plan Found</p>;
   }
 
-  const { BUTTON_CLICKS: BUTTON_CLICKS_LIMIT } = plan.LIMITATIONS;
-
   return (
     <div>
       <p>Current Plan: {user.plan}</p>
       <UserButton afterSignOutUrl="/" />
-      <Button limit={BUTTON_CLICKS_LIMIT} current={buttonClicks} />
+      <Button plan={plan} current={buttonClicks} />
       {plan.TIER === 'FREE' ? <PlanTable /> : null}
       <CustomerPortal />
     </div>

@@ -26,7 +26,9 @@ export default function TutorialLink() {
         <span className="font-bold">Stripe</span>
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-10 w-full">
-        <Link href="">View the code</Link>
+        <Link href="https://github.com/conermurphy/clerk-aws-nextjs-stripe-saas-guide">
+          View the code
+        </Link>
         <Link href="">View the tutorial</Link>
       </div>
     </div>

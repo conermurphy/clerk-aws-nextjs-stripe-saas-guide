@@ -11,8 +11,6 @@ declare global {
       CLERK_SECRET_KEY: string;
       NEXT_PUBLIC_CLERK_SIGN_IN_URL: string;
       NEXT_PUBLIC_CLERK_SIGN_UP_URL: string;
-      NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: string;
-      NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: string;
       AWS_ACCOUNT_ACCESS_KEY: string;
       AWS_ACCOUNT_SECRET_KEY: string;
       AWS_ACCOUNT_REGION: string;

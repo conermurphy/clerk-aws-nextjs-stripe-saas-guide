@@ -36,7 +36,7 @@ export default function Button({ plan, current }: IProps) {
   }
 
   useEffect(() => {
-    if (currentClicks >= BUTTON_CLICKS_LIMIT) {
+    if (BUTTON_CLICKS_LIMIT !== -1 && currentClicks >= BUTTON_CLICKS_LIMIT) {
       setIsLimitReached(true);
     }
   }, [currentClicks, BUTTON_CLICKS_LIMIT]);
@@ -46,20 +46,29 @@ export default function Button({ plan, current }: IProps) {
 
   return (
     <>
-      <p>
-        Current Clicks Used: {currentClicks}/{limitLabel}
-      </p>
-      <button
-        type="button"
-        onClick={handleClick}
-        disabled={
-          BUTTON_CLICKS_LIMIT !== -1 && currentClicks >= BUTTON_CLICKS_LIMIT
-        }
-        className="disabled:text-red-400"
-      >
-        Click Me
-      </button>
-      {isLimitReached ? <p>{limitReachedMessage}</p> : null}
+      <div className="flex flex-col-reverse md:flex-row justify-between items-center text-xl gap-4 md:gap-0">
+        <p>
+          Current Clicks Used:{' '}
+          <span className="font-bold">
+            {currentClicks}/{limitLabel}
+          </span>
+        </p>
+        <button
+          type="button"
+          onClick={handleClick}
+          disabled={
+            BUTTON_CLICKS_LIMIT !== -1 && currentClicks >= BUTTON_CLICKS_LIMIT
+          }
+          className="border-blue-400 text-blue-600 hover:bg-blue-200 duration-150 ease-in-out border-2 px-3 py-2 rounded-md font-bold disabled:text-red-600 disabled:border-red-600 disabled:bg-red-200 disabled:cursor-not-allowed"
+        >
+          Click Me
+        </button>
+      </div>
+      {isLimitReached ? (
+        <p className="bg-amber-200 border-amber-400 border-2 text-amber-600 p-4 rounded-md md:text-lg font-bold">
+          {limitReachedMessage}
+        </p>
+      ) : null}
     </>
   );
 }

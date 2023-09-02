@@ -51,6 +51,11 @@ export async function POST(request: Request) {
           return NextResponse.json({ error: 'No user found' }, { status: 400 });
         }
 
+        // If the user is cancelling their subscription, return and handle it in the .deleted event
+        if (subscription.status === 'canceled') {
+          break;
+        }
+
         await db.send(
           new UpdateCommand({
             TableName: process.env.DB_TABLE_NAME,

@@ -38,22 +38,22 @@ export default function CodeForm() {
 
   return (
     <form
-      className="flex flex-col items-center justify-center min-h-screen"
+      className="flex flex-col items-center justify-center w-full"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="flex flex-col gap-8 border-2 border-gray-600 rounded-md p-6 bg-white">
+      <div className="flex flex-col gap-4 w-full">
         <h1 className="text-xl font-bold">Verify your email address</h1>
         <div className="flex flex-col">
           <label htmlFor="code">Verification Code</label>
           <input
             type="text"
             {...register('code', { required: true })}
-            className="border-gray-300 rounded-md"
+            className="text-lg p-2 px-3 rounded-md"
           />
         </div>
         <button
           type="submit"
-          className="bg-[#0D33BF] text-white font-medium py-2 rounded-sm"
+          className="bg-blue-400 text-white font-medium py-2 rounded-md"
         >
           Continue
         </button>

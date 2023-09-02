@@ -11,7 +11,12 @@ export default async function CustomerPortal() {
   const customerPortalUrl = await createCustomerPortalSession();
 
   return customerPortalUrl ? (
-    <a href={customerPortalUrl}>Manage Your Subscription</a>
+    <a
+      href={customerPortalUrl}
+      className="border-blue-400 text-blue-600 hover:bg-blue-200 duration-150 ease-in-out border-2 px-3 py-2 rounded-md font-bold w-max"
+    >
+      Manage Your Subscription
+    </a>
   ) : (
     <p>Loading...</p>
   );

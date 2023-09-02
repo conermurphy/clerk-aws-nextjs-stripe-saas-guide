@@ -20,9 +20,13 @@ export default async function Home() {
   }
 
   return (
-    <div>
-      <p>Current Plan: {user.plan}</p>
-      <UserButton afterSignOutUrl="/" />
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-row py-4 border-b justify-between items-center">
+        <UserButton afterSignOutUrl="/" />
+        <p className="text-xl">
+          Your Current Plan: <span className="font-bold">{user.plan}</span>
+        </p>
+      </div>
       <Button plan={plan} current={buttonClicks} />
       {plan.TIER === 'FREE' ? <PlanTable /> : null}
       <CustomerPortal />

@@ -17,9 +17,7 @@ export type IPlan = {
     BUTTON_CLICKS: number;
   };
   PRODUCT_ID?: string;
-  PLAN_IDS?: {
-    MONTHLY?: string;
-  };
+  PLAN_ID?: string;
 };
 
 export type IGetCommandOutput<T> = Omit<GetCommandOutput, 'Item'> & {

@@ -5,8 +5,8 @@ declare global {
       STRIPE_WEBHOOK_SECRET: string;
       PRO_PROD_ID: string;
       PREMIUM_PROD_ID: string;
-      PRO_MONTHLY_PRICE_ID: string;
-      PREMIUM_MONTHLY_PRICE_ID: string;
+      PRO_PRICE_ID: string;
+      PREMIUM_PRICE_ID: string;
       NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: string;
       CLERK_SECRET_KEY: string;
       NEXT_PUBLIC_CLERK_SIGN_IN_URL: string;

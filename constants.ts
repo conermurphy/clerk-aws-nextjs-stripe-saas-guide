@@ -10,9 +10,7 @@ export const PLANS: IPlan[] = [
   {
     TIER: 'PRO',
     PRODUCT_ID: process.env.PRO_PROD_ID,
-    PLAN_IDS: {
-      MONTHLY: process.env.PRO_MONTHLY_PRICE_ID,
-    },
+    PLAN_ID: process.env.PRO_PRICE_ID,
     LIMITATIONS: {
       BUTTON_CLICKS: 10,
     },
@@ -20,9 +18,7 @@ export const PLANS: IPlan[] = [
   {
     TIER: 'PREMIUM',
     PRODUCT_ID: process.env.PREMIUM_PROD_ID,
-    PLAN_IDS: {
-      MONTHLY: process.env.PREMIUM_MONTHLY_PRICE_ID,
-    },
+    PLAN_ID: process.env.PREMIUM_PRICE_ID,
     LIMITATIONS: {
       BUTTON_CLICKS: -1,
     },

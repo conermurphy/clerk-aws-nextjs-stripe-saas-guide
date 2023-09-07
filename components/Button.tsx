@@ -56,9 +56,7 @@ export default function Button({ plan, current }: IProps) {
         <button
           type="button"
           onClick={handleClick}
-          disabled={
-            BUTTON_CLICKS_LIMIT !== -1 && currentClicks >= BUTTON_CLICKS_LIMIT
-          }
+          disabled={isLimitReached}
           className="border-blue-400 text-blue-600 hover:bg-blue-200 duration-150 ease-in-out border-2 px-3 py-2 rounded-md font-bold disabled:text-red-600 disabled:border-red-600 disabled:bg-red-200 disabled:cursor-not-allowed"
         >
           Click Me

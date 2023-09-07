@@ -38,7 +38,7 @@ export default async function createCheckoutSession({ planTier }: IProps) {
     },
     line_items: [
       {
-        price: plan?.PLAN_IDS?.MONTHLY,
+        price: plan?.PLAN_ID,
         quantity: 1,
       },
     ],

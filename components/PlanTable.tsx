@@ -10,7 +10,7 @@ export default function PlanTable() {
           if (plan.TIER === 'FREE') return null;
 
           const checkoutUrl = await createCheckoutSession({
-            planTier: plan?.TIER,
+            planId: plan.PLAN_ID,
           });
 
           return checkoutUrl ? (

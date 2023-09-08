@@ -1,14 +1,13 @@
 import Stripe from 'stripe';
 import { IPlan } from '@/types';
 import getCurrentUser from '../db/get-current-user';
-import getPlan from '../get-plan';
 import createStripeUserId from './create-stripe-user-id';
 
 interface IProps {
-  planTier: IPlan['TIER'];
+  planId: IPlan['PLAN_ID'];
 }
 
-export default async function createCheckoutSession({ planTier }: IProps) {
+export default async function createCheckoutSession({ planId }: IProps) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     apiVersion: '2022-11-15',
   });
@@ -18,8 +17,6 @@ export default async function createCheckoutSession({ planTier }: IProps) {
   if (!user) {
     throw new Error('User not found');
   }
-
-  const plan = getPlan(planTier);
 
   let stripeCustomerId = '';
 
@@ -38,7 +35,7 @@ export default async function createCheckoutSession({ planTier }: IProps) {
     },
     line_items: [
       {
-        price: plan?.PLAN_ID,
+        price: planId,
         quantity: 1,
       },
     ],

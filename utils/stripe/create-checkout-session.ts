@@ -2,6 +2,7 @@ import Stripe from 'stripe';
 import { IPlan } from '@/types';
 import getCurrentUser from '../db/get-current-user';
 import createStripeUserId from './create-stripe-user-id';
+import { appUrl } from '@/config';
 
 interface IProps {
   planId: IPlan['PLAN_ID'];
@@ -39,8 +40,8 @@ export default async function createCheckoutSession({ planId }: IProps) {
         quantity: 1,
       },
     ],
-    success_url: `http://localhost:3000`,
-    cancel_url: `http://localhost:3000`,
+    success_url: appUrl,
+    cancel_url: appUrl,
     subscription_data: {
       metadata: {
         payingUserId: user?.pk,

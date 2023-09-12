@@ -28,4 +28,7 @@ const db = DynamoDBDocument.from(new DynamoDB(dynamoConfig), {
 const fetcher = async <T>(url: string) =>
   fetch(url).then((res) => res.json() as T);
 
-export { db, fetcher };
+const isProd = process.env.NODE_ENV === 'production';
+const appUrl = !isProd ? 'http://localhost:3000' : 'YOUR_DEPLOYED_SITE_URL';
+
+export { db, fetcher, appUrl, isProd };

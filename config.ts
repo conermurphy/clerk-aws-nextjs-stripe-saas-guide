@@ -29,6 +29,8 @@ const fetcher = async <T>(url: string) =>
   fetch(url).then((res) => res.json() as T);
 
 const isProd = process.env.NODE_ENV === 'production';
-const appUrl = !isProd ? 'http://localhost:3000' : 'YOUR_DEPLOYED_SITE_URL';
+const appUrl = !isProd
+  ? 'http://localhost:3000'
+  : 'https://clerk-aws-nextjs-stripe-saas-guide.vercel.app';
 
 export { db, fetcher, appUrl, isProd };

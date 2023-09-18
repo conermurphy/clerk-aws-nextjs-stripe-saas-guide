@@ -1,31 +1,23 @@
+// ./utils/stripe/create-checkout-session.ts
+
 import Stripe from 'stripe';
-import { IPlan } from '@/types';
-import getCurrentUser from '../db/get-current-user';
-import createStripeUserId from './create-stripe-user-id';
+import { IPlan, IUser } from '@/types';
 import { appUrl } from '@/config';
 
 interface IProps {
   planId: IPlan['PLAN_ID'];
+  stripeCustomerId: string;
+  user: IUser;
 }
 
-export default async function createCheckoutSession({ planId }: IProps) {
+export default async function createCheckoutSession({
+  planId,
+  stripeCustomerId,
+  user,
+}: IProps) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     apiVersion: '2022-11-15',
   });
-
-  const user = await getCurrentUser();
-
-  if (!user) {
-    throw new Error('User not found');
-  }
-
-  let stripeCustomerId = '';
-
-  if (user.stripeCustomerId) {
-    stripeCustomerId = user.stripeCustomerId;
-  } else {
-    stripeCustomerId = await createStripeUserId({ user });
-  }
 
   const checkoutSession = await stripe.checkout.sessions.create({
     mode: 'subscription',

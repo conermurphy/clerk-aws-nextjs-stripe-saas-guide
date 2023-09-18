@@ -8,13 +8,25 @@ interface IProps {
 }
 
 export default async function createStripeUserId({ user }: IProps) {
+  let stripeCustomerId = '';
+
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     apiVersion: '2022-11-15',
   });
 
-  const stripeCustomer = await stripe.customers.create({
+  const { data } = await stripe.customers.list({
     email: user.email,
   });
+
+  if (!data.length) {
+    const stripeCustomer = await stripe.customers.create({
+      email: user.email,
+    });
+
+    stripeCustomerId = stripeCustomer.id;
+  } else {
+    stripeCustomerId = data?.[0]?.id;
+  }
 
   await db.send(
     new UpdateCommand({
@@ -25,10 +37,10 @@ export default async function createStripeUserId({ user }: IProps) {
       },
       UpdateExpression: 'SET stripeCustomerId = :stripeCustomerId',
       ExpressionAttributeValues: {
-        ':stripeCustomerId': stripeCustomer.id,
+        ':stripeCustomerId': stripeCustomerId,
       },
     })
   );
 
-  return stripeCustomer.id;
+  return stripeCustomerId;
 }

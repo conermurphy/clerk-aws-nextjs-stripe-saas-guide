@@ -1,7 +1,22 @@
-import { PLANS } from '@/constants';
-import createCheckoutSession from '@/utils/stripe/create-checkout-session';
+// ./components/PlanTable.tsx
 
-export default function PlanTable() {
+import { PLANS } from '@/constants';
+import getCurrentUser from '@/utils/db/get-current-user';
+import createCheckoutSession from '@/utils/stripe/create-checkout-session';
+import createStripeUserId from '@/utils/stripe/create-stripe-user-id';
+
+export default async function PlanTable() {
+  const user = await getCurrentUser();
+  let stripeCustomerId = '';
+
+  if (!user) return null;
+
+  if (user?.stripeCustomerId) {
+    stripeCustomerId = user.stripeCustomerId;
+  } else {
+    stripeCustomerId = await createStripeUserId({ user });
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <p className="text-xl font-bold">Plans</p>
@@ -11,6 +26,8 @@ export default function PlanTable() {
 
           const checkoutUrl = await createCheckoutSession({
             planId: plan.PLAN_ID,
+            stripeCustomerId,
+            user,
           });
 
           return checkoutUrl ? (

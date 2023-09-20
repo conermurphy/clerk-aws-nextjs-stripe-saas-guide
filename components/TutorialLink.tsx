@@ -29,7 +29,9 @@ export default function TutorialLink() {
         <Link href="https://github.com/conermurphy/clerk-aws-nextjs-stripe-saas-guide">
           View the code
         </Link>
-        <Link href="">View the tutorial</Link>
+        <Link href="https://conermurphy.com/blog/building-saas-product-nextjs-app-router-clerk-aws-dynamodb-stripe">
+          View the tutorial
+        </Link>
       </div>
     </div>
   );
